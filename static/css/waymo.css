@@ -6,3 +6,8 @@ svg { display: block; width: 100%; height: auto; }
 .point-label { font-size: 12px; fill: #252b33; }
 .grid line { stroke: #e5e7eb; }
 .grid .domain { display: none; }
+#rate-chart { margin-top: 8px; }
+.point, .bar { cursor: pointer; }
+.point:focus-visible, .bar:focus-visible { outline: 2px solid #252b33; outline-offset: 3px; }
+.point-label, .bar-label { pointer-events: none; }
+.bar-label { font-size: 12px; fill: #252b33; }
