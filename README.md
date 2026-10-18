@@ -1,18 +1,18 @@
 # Exploring Self-Driving Vehicle Safety — DATASCI 209, Group 4
 
-The app now includes Paul's Waymo charts in D3: three vertically aligned quarterly bar charts and a connected scatterplot of crashes versus mileage. Selecting a scatterplot point or the reference-quarter dropdown re-anchors a constant-rate line through the origin. Bar and point selection links the quarterly highlights. Controls support keyboard navigation.
+The page contains one D3 plot: quarterly reported crashes versus miles driven, connected in time order, with quarter labels and a dotted reference through the origin and 2024 Q3.
 
 Run `python -m flask --app app run --port 5100` and open http://127.0.0.1:5100.
 
 ### Files for the Waymo page
 
-- `templates/w209.html`: page layout and source/methodology explanations.
-- `static/js/waymo.js`: D3 rendering, responsive layouts, and interactions.
+- `templates/w209.html`: minimal page layout.
+- `static/js/waymo.js`: D3 plot rendering and resizing.
 - `static/css/waymo.css`: styles.
 - `static/data/waymo-quarterly.json`: the eight aggregate quarterly observations from the local exploratory notebook.
 - `scripts/export_waymo_data.py`: regenerates plotted data from a CSV with `quarter`, `crashes`, and `miles` columns. Usage: `python scripts/export_waymo_data.py /path/to/waymo_all_areas_quarterly.csv`.
 
-NHTSA reporting criteria changed on June 16, 2025. The interface marks this boundary; a decline in reported crashes across it cannot by itself demonstrate improved safety. Mileage is published rider-only mileage, derived from differences between cumulative releases. These are crash involvements, not at-fault crashes.
+NHTSA reporting criteria changed on June 16, 2025; a decline in reported crashes across it cannot by itself demonstrate improved safety. Mileage is published rider-only mileage, derived from differences between cumulative releases. These are crash involvements, not at-fault crashes.
 
 The existing Flask/Vercel configuration is used. No Node build step is needed. D3 7.9.0 is vendored under `static/vendor/` (ISC license). The inherited football database is unused by this page and excluded from deployments through `.vercelignore`.
 
