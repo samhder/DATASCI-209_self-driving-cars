@@ -21,8 +21,8 @@
         .attr('stroke-width', 2)
         .attr('aria-pressed', d => String(d.quarter === selected));
       d3.selectAll('.bar')
-        .attr('fill', d => d.quarter === active ? purple : blue)
-        .attr('opacity', d => !active || d.quarter === active ? 1 : 0.4)
+        .attr('fill', d => d.quarter === hovered ? blue : purple)
+        .attr('opacity', 1)
         .attr('stroke', d => d.quarter === selected ? '#252b33' : 'none')
         .attr('stroke-width', 2)
         .attr('aria-pressed', d => String(d.quarter === selected));
@@ -54,17 +54,18 @@
       const m = { left: 60, right: 30, top: 30, bottom: 52 };
       const maxMiles = d3.max(data, d => d.miles_millions);
       const x = d3.scaleLinear().domain([0, maxMiles * 1.04]).nice().range([m.left, width - m.right]);
-      const y = d3.scaleLinear().domain([0, Math.max(d3.max(data, d => d.crashes), maxMiles * d3.max(data, d => d.rate)) * 1.08]).nice().range([height - m.bottom, m.top]);
+      const y = d3.scaleLinear().domain([0, d3.max(data, d => d.crashes) * 1.12]).nice().range([height - m.bottom, m.top]);
       const svg = trajectory.append('svg').attr('viewBox', `0 0 ${width} ${height}`).attr('role', 'group').attr('aria-label', 'Quarterly reported crashes against miles driven');
       svg.append('g').attr('class', 'grid').attr('transform', `translate(${m.left},0)`).call(d3.axisLeft(y).ticks(5).tickSize(-(width - m.left - m.right)).tickFormat(''));
       svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${height - m.bottom})`).call(d3.axisBottom(x).ticks(compact ? 5 : 8).tickSizeOuter(0));
       svg.append('g').attr('class', 'axis').attr('transform', `translate(${m.left},0)`).call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(8)).call(g => g.select('.domain').remove());
       svg.append('text').attr('class', 'axis-label').attr('x', (width + m.left) / 2).attr('y', height - 7).attr('text-anchor', 'middle').text('Miles driven (millions)');
       svg.append('text').attr('class', 'axis-label').attr('transform', `translate(16,${(height - m.bottom + m.top) / 2}) rotate(-90)`).attr('text-anchor', 'middle').text('Reported crashes');
-      const reference = svg.append('line').attr('class', 'reference-line').attr('x1', x(0)).attr('y1', y(0)).attr('x2', x(maxMiles)).attr('stroke', '#8c929a').attr('stroke-width', 2).attr('stroke-dasharray', '2,5');
+      const reference = svg.append('line').attr('class', 'reference-line').attr('x1', x(0)).attr('y1', y(0)).attr('stroke', '#8c929a').attr('stroke-width', 2).attr('stroke-dasharray', '2,5');
       const referenceTitle = reference.append('title');
       updateReference = () => {
-        reference.attr('y2', y(maxMiles * baseline.rate)).attr('aria-label', `Reference: ${baseline.quarter}, ${baseline.rate.toFixed(2)} reported crashes per million miles`);
+        const endMiles = Math.min(x.domain()[1], y.domain()[1] / baseline.rate);
+        reference.attr('x2', x(endMiles)).attr('y2', y(endMiles * baseline.rate)).attr('aria-label', `Reference: ${baseline.quarter}, ${baseline.rate.toFixed(2)} reported crashes per million miles`);
         referenceTitle.text(`${baseline.quarter}: ${baseline.rate.toFixed(2)} reported crashes per million miles`);
       };
       updateReference();

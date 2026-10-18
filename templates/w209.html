@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Waymo crashes and miles driven</title>
+  <title>Waymo crashes per million miles driven</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/waymo.css') }}">
   <script defer src="{{ url_for('static', filename='vendor/d3.v7.min.js') }}"></script>
@@ -11,8 +11,9 @@
 </head>
 <body>
   <main>
-    <div id="trajectory-chart" aria-label="Quarterly Waymo crashes versus miles driven"></div>
+    <h1>Waymo crashes per million miles driven</h1>
     <div id="rate-chart" aria-label="Quarterly Waymo reported crashes per million miles"></div>
+    <div id="trajectory-chart" aria-label="Quarterly Waymo crashes versus miles driven"></div>
   </main>
 </body>
 </html>
