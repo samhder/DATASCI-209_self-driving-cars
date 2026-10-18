@@ -1,6 +1,53 @@
-<!DOCTYPE html>
-<html><head><title>w209 site</title></head>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore Waymo's reported crashes and rider-only mileage by quarter, with context about changes in crash reporting.">
+  <title>Waymo crashes & miles driven · Exploring AV Safety</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/waymo.css') }}">
+  <script defer src="{{ url_for('static', filename='vendor/d3.v7.min.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/waymo.js') }}"></script>
+</head>
 <body>
-<h2>Hello World!</h2>
-<img src="{{url_for('static',filename=file)}}"/>
-</body></html>
+  <a class="skip" href="#main">Skip to charts</a>
+  <header class="site-header"><a href="/">Exploring AV Safety</a><span>DATASCI 209 · Group 4</span></header>
+  <main id="main">
+    <div class="eyebrow">Waymo over time <span>2024 Q3–2026 Q2 · All reported locations</span></div>
+    <h1>Crashes, miles, and the<br class="desktop-break"> relationship between them.</h1>
+    <p class="intro">More driving can mean more crashes even when the rate falls. Explore reported crash counts alongside Waymo’s published rider-only mileage.</p>
+
+    <aside class="reporting-note"><strong>A change in what gets reported.</strong> NHTSA’s reporting criteria changed on June 16, 2025, just before the sharp decline in 2025 Q3. Comparisons across this boundary need care. <a href="https://www.nhtsa.gov/laws-regulations/standing-general-order-crash-reporting">About the reporting change ↗</a></aside>
+
+    <section class="chart-section" aria-labelledby="quarterly-heading">
+      <div class="section-heading"><div><span class="section-number">01 / Quarterly view</span><h2 id="quarterly-heading">Waymo crashes and miles driven</h2></div><button class="text-button" id="clear-selection" type="button">Clear highlight</button></div>
+      <p class="chart-help">Hover over a bar or select a quarter to compare the same period across all three charts.</p>
+      <div class="selected-values" id="selected-values" aria-live="polite"></div>
+      <div id="quarterly-chart" class="chart" aria-label="Three aligned bar charts showing reported crashes per million miles, reported crashes, and miles driven by quarter"></div>
+      <div class="chart-footer"><span class="legend-dot purple"></span> Reported crashes per million miles <span class="legend-dot blue"></span> Reported crashes <span class="legend-dot teal"></span> Miles driven</div>
+    </section>
+
+    <section class="chart-section" aria-labelledby="trajectory-heading">
+      <div class="section-heading"><div><span class="section-number">02 / Crashes versus mileage</span><h2 id="trajectory-heading">How does each quarter compare?</h2></div><label class="baseline-control" for="baseline-quarter">Reference quarter<select id="baseline-quarter"></select></label></div>
+      <p class="chart-help">Dots connect in time order. Select a dot to anchor the dotted line to that quarter’s reported crash rate.</p>
+      <p id="baseline-summary" class="baseline-summary" aria-live="polite"></p>
+      <div id="trajectory-chart" class="chart" aria-label="Connected scatterplot of quarterly reported crashes against miles driven, with a constant-rate reference through the origin"></div>
+      <p class="chart-caption">Below the dotted line means fewer reported crashes per mile than the reference quarter; above means more. The line is a constant-rate comparison, not a fitted trend or a prediction.</p>
+      <p id="comparison-readout" class="comparison-readout" aria-live="polite">Select or hover over a quarter to see its comparison.</p>
+    </section>
+
+    <details class="methodology" open>
+      <summary>Data and interpretation</summary>
+      <div class="method-grid">
+        <div><h3>What is counted?</h3><p>NHTSA ADS reports identifying Waymo, no human driver/operator, and ADS engaged. Latest report versions are retained and shared incident IDs are deduplicated. All crash severities and reported locations are included.</p></div>
+        <div><h3>What are the miles?</h3><p>Quarterly differences between published cumulative rider-only mileage releases. Earlier releases sum published depot rows; later releases use the overall total. Historical revisions and changes in coverage can affect those differences.</p></div>
+        <div><h3>What can this tell us?</h3><p>These are reported crash involvements, regardless of fault. Exposure to different roads, cities, and conditions changes over time. The charts describe this dataset and do not establish that Waymo caused a crash or became safer.</p></div>
+      </div>
+      <p class="sources"><a href="https://www.nhtsa.gov/laws-regulations/standing-general-order-crash-reporting">NHTSA crash reports</a> · <a href="https://waymo.com/safety/impact/">Waymo mileage releases</a> · <a href="{{ url_for('static', filename='data/waymo-quarterly.json') }}" download>Download plotted data (JSON)</a></p>
+    </details>
+    <p id="load-error" class="error" hidden>Chart data could not be loaded. Please reload this page.</p>
+  </main>
+  <footer><span>Solomon Azariah · Sam Der · Rich Shelby · Paul Terrasi</span><span>UC Berkeley MIDS · Fall 2026</span></footer>
+</body>
+</html>
