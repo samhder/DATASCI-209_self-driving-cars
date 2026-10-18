@@ -1,4 +1,3 @@
-/* global d3 */
 (() => {
   'use strict';
   const chart = d3.select('#trajectory-chart');

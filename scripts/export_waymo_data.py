@@ -1,4 +1,3 @@
-"""Export the notebook's aggregate CSV; source incident records stay outside the site."""
 import argparse
 import csv
 import json
@@ -31,13 +30,6 @@ output.write_text(json.dumps({
     'sources': [
         'https://www.nhtsa.gov/laws-regulations/standing-general-order-crash-reporting',
         'https://waymo.com/safety/impact/',
-    ],
-    'notes': [
-        'Latest report version per Report ID; deduplicated using Same Incident ID where supplied.',
-        'Waymo, Driver / Operator Type None, ADS engaged; all severities and all locations.',
-        'Quarterly mileage is the difference between cumulative releases, which can include historical revisions.',
-        'NHTSA reporting criteria changed June 16, 2025; earlier and later totals are not directly comparable without qualification.',
-        'Reported crash involvement does not establish fault or causality.',
     ],
     'quarters': rows,
 }, indent=2) + '\n')

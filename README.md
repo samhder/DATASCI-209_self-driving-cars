@@ -1,22 +1,4 @@
-# Exploring Self-Driving Vehicle Safety — DATASCI 209, Group 4
-
-The page contains one D3 plot: quarterly reported crashes versus miles driven, connected in time order, with quarter labels and a dotted reference through the origin and 2024 Q3.
-
-Run `python -m flask --app app run --port 5100` and open http://127.0.0.1:5100.
-
-### Files for the Waymo page
-
-- `templates/w209.html`: minimal page layout.
-- `static/js/waymo.js`: D3 plot rendering and resizing.
-- `static/css/waymo.css`: styles.
-- `static/data/waymo-quarterly.json`: the eight aggregate quarterly observations from the local exploratory notebook.
-- `scripts/export_waymo_data.py`: regenerates plotted data from a CSV with `quarter`, `crashes`, and `miles` columns. Usage: `python scripts/export_waymo_data.py /path/to/waymo_all_areas_quarterly.csv`.
-
-NHTSA reporting criteria changed on June 16, 2025; a decline in reported crashes across it cannot by itself demonstrate improved safety. Mileage is published rider-only mileage, derived from differences between cumulative releases. These are crash involvements, not at-fault crashes.
-
-The existing Flask/Vercel configuration is used. No Node build step is needed. D3 7.9.0 is vendored under `static/vendor/` (ISC license). The inherited football database is unused by this page and excluded from deployments through `.vercelignore`.
-
-## Original course template instructions
+# DATASCI 209 flask template
 
 This repo provides a basic flask app for DATASCI 209 students and instructors. You can run this flask app locally for development/debugging or deploy it to [Vercel](https://vercel.com).
 
