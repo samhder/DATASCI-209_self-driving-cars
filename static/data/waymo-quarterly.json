@@ -1,0 +1,66 @@
+{
+  "description": "Waymo driverless ADS crash reports and published rider-only miles, all reported locations.",
+  "period": "2024 Q3\u20132026 Q2",
+  "sources": [
+    "https://www.nhtsa.gov/laws-regulations/standing-general-order-crash-reporting",
+    "https://waymo.com/safety/impact/"
+  ],
+  "quarters": [
+    {
+      "quarter": "2024 Q3",
+      "crashes": 116,
+      "miles": 10904000,
+      "miles_millions": 10.904,
+      "rate": 10.638297872340425
+    },
+    {
+      "quarter": "2024 Q4",
+      "crashes": 192,
+      "miles": 16980000,
+      "miles_millions": 16.98,
+      "rate": 11.307420494699647
+    },
+    {
+      "quarter": "2025 Q1",
+      "crashes": 199,
+      "miles": 21537000,
+      "miles_millions": 21.537,
+      "rate": 9.239912708362354
+    },
+    {
+      "quarter": "2025 Q2",
+      "crashes": 242,
+      "miles": 24345000,
+      "miles_millions": 24.345,
+      "rate": 9.940439515300882
+    },
+    {
+      "quarter": "2025 Q3",
+      "crashes": 156,
+      "miles": 31193000,
+      "miles_millions": 31.193,
+      "rate": 5.001122046613022
+    },
+    {
+      "quarter": "2025 Q4",
+      "crashes": 266,
+      "miles": 43554000,
+      "miles_millions": 43.554,
+      "rate": 6.107360977177756
+    },
+    {
+      "quarter": "2026 Q1",
+      "crashes": 274,
+      "miles": 49901000,
+      "miles_millions": 49.901,
+      "rate": 5.4908719264143
+    },
+    {
+      "quarter": "2026 Q2",
+      "crashes": 310,
+      "miles": 50716000,
+      "miles_millions": 50.716,
+      "rate": 6.112469437652812
+    }
+  ]
+}

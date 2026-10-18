@@ -1,0 +1,8 @@
+body { margin: 24px; background: #fff; color: #252b33; font-family: Arial, sans-serif; }
+main { max-width: 1100px; margin: 0 auto; }
+svg { display: block; width: 100%; height: auto; }
+.axis { font-size: 12px; color: #59616a; }
+.axis-label { font-size: 14px; fill: #252b33; }
+.point-label { font-size: 12px; fill: #252b33; }
+.grid line { stroke: #e5e7eb; }
+.grid .domain { display: none; }
