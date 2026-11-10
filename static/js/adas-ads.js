@@ -33,21 +33,20 @@
     return d3.timeParse('%b-%Y')(raw);
   }
 
-  function buildDashboard(adasData, adsData) {
-    container.innerHTML = '';
-
+  function createHeader() {
     const header = document.createElement('div');
     header.className = 'dashboard-header';
     header.innerHTML = `
-      <h2>Crashes by Vehicle Brand — ADAS vs ADS</h2>
-      <p style="margin:4px 0 0 0;font-size:13px;color:#555;">
-        NHTSA Standing General Order 2021-01 incident reports &nbsp;|&nbsp;
-        grouped bar chart (top 10 brands) plus monthly timeseries (top 5 brands)
+      <h1>NHTSA ADAS & ADS Incidents by Vehicle Brand</h1>
+      <p style="margin:0 0 16px 0;font-size:13px;color:#555;">
+        NHTSA Standing General Order 2021-01 incident reports &mdash; grouped bar chart (top 10 brands) plus monthly timeseries (top 5 brands). Use the dropdown to filter both charts by make.
       </p>
+      <h2>Crashes by Vehicle Brand — ADAS vs ADS</h2>
     `;
-    container.appendChild(header);
+    return header;
+  }
 
-    // Dropdown to filter both charts by vehicle make (placed at the top)
+  function createFilterBar(top5Makes) {
     const filterBar = document.createElement('div');
     filterBar.className = 'make-filter';
     filterBar.style.marginBottom = '16px';
@@ -59,9 +58,17 @@
       <label for="make-filter" style="font-size:13px;font-weight:600;margin-right:8px;">Filter by make:</label>
       <select id="make-filter" style="padding:6px 10px;font-size:13px;"></select>
     `;
-    container.appendChild(filterBar);
 
-    // Count crashes by make for each automation system
+    const select = filterBar.querySelector('#make-filter');
+    select.innerHTML =
+      '<option value="None">None</option>' +
+      top5Makes.map((m) => `<option value="${m}">${m}</option>`).join('');
+
+    return filterBar;
+  }
+
+  // Count crashes by make for each automation system
+  function getMakeCounts(adasData, adsData) {
     const adasCounts = d3.rollup(
       adasData,
       (g) => g.length,
@@ -72,47 +79,65 @@
       (g) => g.length,
       (d) => normalizeMake(d.Make),
     );
+    return { adasCounts, adsCounts };
+  }
 
+  function buildMakeData(adasCounts, adsCounts) {
     const allMakes = new Set([...adasCounts.keys(), ...adsCounts.keys()]);
-    let data = Array.from(allMakes, (make) => ({
+    const data = Array.from(allMakes, (make) => ({
       make,
       adas: adasCounts.get(make) || 0,
       ads: adsCounts.get(make) || 0,
     }));
     // Sort by total crashes descending
     data.sort((a, b) => b.adas + b.ads - (a.adas + a.ads));
+    return data;
+  }
 
-    // Bar chart: top 10 brands
-    const barData = data.slice(0, 10);
+  // Combine both datasets, tagging each row with its automation system
+  function combineRows(adasData, adsData) {
+    return [
+      ...adasData.map((d) => ({ ...d, system: 'ADAS' })),
+      ...adsData.map((d) => ({ ...d, system: 'ADS' })),
+    ];
+  }
 
-    // Timeseries: top 5 brands
-    const top5 = data.slice(0, 5);
+  function createSvgCard(parent, className, width, height) {
+    const card = document.createElement('div');
+    card.className = className;
+    parent.appendChild(card);
 
-    // ---- Bar chart card ----
-    const barCard = document.createElement('div');
-    barCard.className = 'chart-card grouped-chart';
-    container.appendChild(barCard);
-
-    const barSvg = d3
+    const svg = d3
       .create('svg')
-      .attr('viewBox', [0, 0, 1100, 620])
+      .attr('viewBox', [0, 0, width, height])
       .attr(
         'style',
         'max-width:100%; height:auto; display:block; margin:0 auto;',
       );
-    barCard.appendChild(barSvg.node());
+    card.appendChild(svg.node());
+    return svg;
+  }
 
-    function renderGroupedBar(selectedMake) {
-      // "All" = show top 10; otherwise filter to just the chosen make
-      const filtered =
-        selectedMake === 'All'
-          ? barData
-          : barData.filter((d) => d.make === selectedMake);
-      barSvg.selectAll('*').remove();
-      plotGroupedBar(barSvg, filtered, { width: 1100, height: 620 });
-    }
+  function buildDashboard(adasData, adsData) {
+    container.innerHTML = '';
 
-    plotGroupedBar(barSvg, barData, { width: 1100, height: 620 });
+    container.appendChild(createHeader());
+
+    const { adasCounts, adsCounts } = getMakeCounts(adasData, adsData);
+    const data = buildMakeData(adasCounts, adsCounts);
+
+    // Bar chart: top 10 brands
+    const barData = data.slice(0, 10);
+    // Timeseries: top 5 brands
+    const top5Makes = data.slice(0, 5).map((d) => d.make);
+
+    // Dropdown to filter both charts by vehicle make (placed at the top)
+    const filterBar = createFilterBar(top5Makes);
+    container.appendChild(filterBar);
+    const select = filterBar.querySelector('#make-filter');
+
+    // ---- Bar chart card ----
+    const barSvg = createSvgCard(container, 'chart-card grouped-chart', 1100, 620);
 
     // ---- Timeseries chart card ----
     const tsCard = document.createElement('div');
@@ -133,25 +158,27 @@
       );
     tsCard.appendChild(tsSvg.node());
 
-    // Combine both datasets, tagging each row with its automation system
-    const allRows = [
-      ...adasData.map((d) => ({ ...d, system: 'ADAS' })),
-      ...adsData.map((d) => ({ ...d, system: 'ADS' })),
-    ];
+    // Only the top 10 brands appear in the timeseries
+    const top10Makes = new Set(barData.map((d) => d.make));
+    const allRows = combineRows(adasData, adsData).filter((d) =>
+      top10Makes.has(normalizeMake(d.Make)),
+    );
 
-    // Build dropdown options: "All makes" plus only the top 5 makes
-    const select = filterBar.querySelector('#make-filter');
-    const top5Makes = top5.map((d) => d.make);
-    select.innerHTML =
-      '<option value="All">All makes</option>' +
-      top5Makes.map((m) => `<option value="${m}">${m}</option>`).join('');
+    function renderGroupedBar(selectedMake) {
+      // "None" = show top 10; otherwise filter to just the chosen make
+      const filtered =
+        selectedMake === 'None'
+          ? barData
+          : barData.filter((d) => d.make === selectedMake);
+      plotGroupedBar(barSvg, filtered, { width: 1100, height: 620 });
+    }
 
     function renderTimeseries(selectedMake) {
       // null = show all; otherwise show only the chosen make
       plotTimeseries(
         tsSvg,
         allRows,
-        selectedMake === 'All' ? null : selectedMake,
+        selectedMake === 'None' ? null : selectedMake,
         { width: 1100, height: 420 },
       );
     }
@@ -162,13 +189,15 @@
       renderTimeseries(value);
     });
 
-    // Initial render: show all makes in both charts
-    renderGroupedBar('All');
-    renderTimeseries('All');
+    // Initial render: no filter in both charts
+    renderGroupedBar('None');
+    renderTimeseries('None');
   }
 
   // Grouped (not stacked) bar chart: one group per brand, one bar per system
   function plotGroupedBar(svg, data, { width, height }) {
+    svg.selectAll('*').remove();
+
     const margin = { top: 50, right: 40, bottom: 130, left: 80 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
@@ -289,7 +318,7 @@
       .append('g')
       .attr(
         'transform',
-        `translate(${width - margin.right - 160},${margin.top / 2})`,
+        `translate(${width - margin.right - 100},${margin.top / 2})`,
       );
 
     series.forEach((s, i) => {
@@ -463,7 +492,7 @@
       .append('g')
       .attr(
         'transform',
-        `translate(${width - margin.right + 8},${margin.top + innerHeight + 68})`,
+        `translate(${width - margin.right + 20},${margin.top + innerHeight - 190})`,
       );
 
     series.forEach((s, i) => {

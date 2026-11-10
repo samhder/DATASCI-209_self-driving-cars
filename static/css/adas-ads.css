@@ -29,6 +29,7 @@ body {
   border-radius: 8px;
   padding: 14px;
   background: #fff;
+  margin-bottom: 16px;
 }
 .chart-card h3 {
   margin: 0 0 10px 0;
