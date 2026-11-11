@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Robotaxi Rain Check</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rain-check.css') }}">
+</head>
+<body>
+<div class="tip" id="tip"></div>
+<div class="sky" aria-hidden="true"><div class="sun"></div><div class="clouds"></div><div class="rain"></div></div>
+<div class="wrap">
+  <div class="top">
+    <div class="logo"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h20l-2.5-6.5a2 2 0 0 0-1.9-1.3H10.4a2 2 0 0 0-1.9 1.3z"/><rect x="4" y="18" width="24" height="7" rx="2"/><circle cx="10" cy="26" r="2"/><circle cx="22" cy="26" r="2"/><path d="M11 4v3M16 3v4M21 4v3" stroke="#2b6cd4"/></svg>Robotaxi Rain Check</div>
+    <div class="src">Built from every self driving car crash reported to U.S. regulators, 2021 to 2026</div>
+  </div>
+
+  <div class="hero">
+    <h1 id="h1">Is it safe to take a robotaxi in the rain?</h1>
+    <p class="lede">Pick your city and today's weather. We checked 2,945 crash reports against the weather at the time, and we will tell you what they say, and what they cannot.</p>
+    <div class="ask">
+      <div class="q mapq"><p class="lbl">Where are you? <span class="lblhint">Tap your city on the map. Bubble size is how many crashes were reported there; the blue center is how many happened in rain.</span></p>
+        <div class="map" id="map"></div>
+        <div class="maprow"><div class="chips" id="cityPick"></div><button class="ctl play" id="mapPlay">▶ Watch the fleets spread, 2021 to 2026</button></div></div>
+      <div class="q"><p class="lbl">What is the weather?</p><div class="wx" id="wxPick"></div><p class="wxnote" id="wxNote"></p></div>
+    </div>
+  </div>
+
+  <section class="answer" id="answer" aria-live="polite">
+    <div class="where" id="aWhere"></div>
+    <h2 id="aHead"></h2>
+    <p class="sub" id="aSub"></p>
+    <div class="sure" id="aSure"></div>
+    <div class="tiles" id="tiles"></div>
+    <div class="who" id="who"></div>
+  </section>
+
+  <section class="why">
+    <h2>Why we say that</h2>
+    <p class="intro">Three pictures, one idea each. Every dot is a real crash report.</p>
+
+    <div class="card" id="cardRings">
+      <div class="ch"><div class="ic" id="icRings"></div><div><h3 id="t1"></h3><p class="take" id="k1"></p></div></div>
+      <div class="viz" id="vRings"></div>
+      <div class="row" style="margin-top:12px"><span>What if the cars drive less in the rain? Usual driving in rain: <span class="pill" id="milesLbl">100%</span></span><input type="range" id="miles" min="30" max="100" step="5" value="100" aria-label="share of usual driving in rain"><span id="milesHint" style="color:var(--muted);font-size:13px">Slide left until the empty rings disappear.</span></div>
+      <p class="how">Each ring is a rain crash we would expect if rain made no difference, based on how many hours it actually rained. Each filled dot is a rain crash that really happened.</p>
+      <div class="compare"><p class="lbl" style="margin:16px 0 6px">How your city compares <span class="lblhint">Filled bar = rain crashes that happened. Outline = what the weather predicted. Tap a city to switch.</span></p><div id="vCompare"></div></div>
+    </div>
+
+    <div class="card" id="cardInjury">
+      <div class="ch"><div class="ic" id="icInjury"></div><div><h3 id="t2"></h3><p class="take" id="k2"></p></div></div>
+      <div class="viz people" id="vPeople"></div>
+      <p class="how" id="h2note"></p>
+    </div>
+
+    <div class="card" id="cardMonths">
+      <div class="ch"><div class="ic" id="icMonths"></div><div><h3 id="t3"></h3><p class="take" id="k3"></p></div></div>
+      <div class="viz" id="vMonths"></div>
+      <p class="how" id="h3note"></p>
+    </div>
+
+    <h2 style="font-size:20px; margin-top:26px">What this cannot tell you</h2>
+    <div class="cannot">
+      <div class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/><path d="M3 21h18" opacity=".4"/></svg><div><b>How far the cars drove</b><span>Nobody reports miles, so "safer in rain" and "mostly parked in rain" look exactly the same in the data.</span></div></div>
+      <div class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><div><b>Which streets</b><span>Regulators remove the exact location, so we can only answer for a whole city, not a neighborhood.</span></div></div>
+      <div class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 15a4 4 0 0 1-.9-7.9A5.5 5.5 0 0 1 16.7 6 4.5 4.5 0 0 1 17 15H7z"/><path d="M8 18l-1 3M12 18l-1 3M16 18l-1 3"/></svg><div><b>How hard it rained</b><span>A report says "rain" or not. Drizzle and a downpour count the same.</span></div></div>
+    </div>
+  </section>
+
+  <footer>Data: <a href="https://www.nhtsa.gov/laws-regulations/standing-general-order-crash-reporting" target="_blank" rel="noopener">NHTSA Standing General Order crash reports</a> for automated driving systems, July 2021 to August 2026, de-duplicated to 2,945 crashes, and hourly rain for six metros from the <a href="https://open-meteo.com/en/docs/historical-weather-api" target="_blank" rel="noopener">Open-Meteo Historical Weather API</a>. Expected rain crashes = a city's crashes × the share of hours it was raining there. Injury rates carry 95 percent intervals. Group 4, DATASCI 209, UC Berkeley MIDS; code in the weather_eda folder of the team repo.</footer>
+</div>
+<script src="{{ url_for('static', filename='vendor/d3.v7.min.js') }}"></script>
+<script>window.RAIN_CHECK_DATA = "{{ url_for('static', filename='data/rain-check.json') }}";</script>
+<script src="{{ url_for('static', filename='js/rain-check.js') }}"></script>
+</body>
+</html>
