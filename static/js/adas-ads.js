@@ -35,11 +35,10 @@
 
   function createHeader() {
     const header = document.createElement('div');
-    header.className = 'dashboard-header';
     header.innerHTML = `
-      <h1>NHTSA ADAS & ADS Incidents by Vehicle Brand</h1>
-      <p style="margin:0 0 16px 0;font-size:13px;color:#555;">
-        NHTSA Standing General Order 2021-01 incident reports &mdash; grouped bar chart (top 10 brands) plus monthly timeseries (top 5 brands). Use the dropdown to filter both charts by make.
+      <h1>NHTSA ADAS & ADS Incident Reports by Vehicle Brand</h1>
+      <p style="margin: 0 0 16px 0; color:#555;">
+        <strong>Dataset:</strong> <a href="https://www.nhtsa.gov/laws-regulations/standing-general-order-crash-reporting">NHTSA Standing General Order Incident Reports (2021 - 2026)</a> 
       </p>
       <h2>Crashes by Vehicle Brand — ADAS vs ADS</h2>
     `;
@@ -55,8 +54,8 @@
     filterBar.style.border = '1px solid #e5e5e5';
     filterBar.style.borderRadius = '8px';
     filterBar.innerHTML = `
-      <label for="make-filter" style="font-size:13px;font-weight:600;margin-right:8px;">Filter by make:</label>
-      <select id="make-filter" style="padding:6px 10px;font-size:13px;"></select>
+      <label for="make-filter" style="font-weight: bold; margin-right: 8px;">Filter by make:</label>
+      <select id="make-filter" style="padding: 6px 10px;"></select>
     `;
 
     const select = filterBar.querySelector('#make-filter');
@@ -144,9 +143,9 @@
     tsCard.className = 'chart-card';
     container.appendChild(tsCard);
 
-    const tsHeader = document.createElement('h3');
-    tsHeader.textContent =
-      'NHTSA Monthtly Record of ADAS and ADS Incidents (2021 - 2026)';
+    const tsHeader = document.createElement('text');
+    tsHeader.textContent = 'Monthtly Record of Incidents';
+    tsHeader.style.fontWeight = 'bold';
     tsCard.appendChild(tsHeader);
 
     const tsSvg = d3
@@ -241,8 +240,8 @@
       .attr('x', -margin.left + 4)
       .attr('y', -22)
       .attr('fill', '#333')
-      .attr('font-size', '12px')
       .attr('text-anchor', 'start')
+      .attr('font-weight', 'bold')
       .text('Number of Crashes');
 
     // ADAS bars (blue)
