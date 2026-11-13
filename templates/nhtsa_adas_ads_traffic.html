@@ -1,65 +1,53 @@
+{% extends "layout.html" %} {% block title %}ADS/ADAS Incidents vs.
+Traffic{%endblock %} {% block head %} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/adas-ads-traffic.css') }}"
+/>
+{% endblock %} {% block body %}
+<main class="wrap traffic-page">
+  <h1>ADS/ADAS Incidents vs. General Traffic...</h1>
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1">
+  <p class="description">
+    Explore how the hourly distribution of reported ADS/ADAS incidents compares
+    with general traffic volume. Filter by date, region, technology, and
+    manufacturer.
+  </p>
 
-    <title>ADS/ADAS Incidents vs. Traffic</title>
+  <div id="traffic-chart"></div>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/adas-ads-traffic.css') }}">
-</head>
-
-<body>
-<main>
-    <h1>ADS/ADAS Incidents vs. General Traffic...</h1>
-
-    <p class="description">
-        Explore how the hourly distribution of reported
-        ADS/ADAS incidents compares with general traffic volume.
-        Filter by date, region, technology, and manufacturer.
-    </p>
-
-    <div id="traffic-chart"></div>
-
-    <p class="methodology">
-        Percentages represent the hourly distribution within
-        each dataset. They do not represent crash risk per
-        vehicle or per mile driven.
-    </p>
+  <p class="methodology">
+    Percentages represent the hourly distribution within each dataset. They do
+    not represent crash risk per vehicle or per mile driven.
+  </p>
 </main>
 
-
 <script type="module">
-    const container = document.querySelector("#traffic-chart");
+  const container = document.querySelector("#traffic-chart");
 
-    try {
-        const { Runtime, Inspector } = await import(
-            "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/+esm"
-            );
+  try {
+    const { Runtime, Inspector } =
+      await import("https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/+esm");
 
-        const { default: define } = await import(
-            "{{ url_for('static', filename='js/nhtsa-adas-ads-traffic.js') }}"
-            );
+    const { default: define } =
+      await import("{{ url_for('static', filename='js/nhtsa-adas-ads-traffic.js') }}");
 
-        const runtime = new Runtime();
+    const runtime = new Runtime();
 
-        const module = runtime.module(define);
+    const module = runtime.module(define);
 
-        module.value("chart").then(chart => {
-            container.replaceChildren(chart);
-        }).catch(error => {
-            console.error("Chart evaluation failed:", error);
-            container.textContent = `Chart error: ${error.message}`;
-        });
-
-    } catch (error) {
-        console.error("Observable initialization failed:", error);
-        container.textContent = `Initialization error: ${error.message}`;
-    }
+    module
+      .value("chart")
+      .then((chart) => {
+        container.replaceChildren(chart);
+      })
+      .catch((error) => {
+        console.error("Chart evaluation failed:", error);
+        container.textContent = `Chart error: ${error.message}`;
+      });
+  } catch (error) {
+    console.error("Observable initialization failed:", error);
+    container.textContent = `Initialization error: ${error.message}`;
+  }
 </script>
-
-</body>
-</html>
+{% endblock %}

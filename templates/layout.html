@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      {% block title %}{% endblock %}Self-Driving Cars: A Safety Analysis
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/global.css') }}"
+    />
+    <script
+      defer
+      src="{{ url_for('static', filename='vendor/d3.v7.min.js') }}"
+    ></script>
+    {% endblock %}
+  </head>
+
+  <body>
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="nav-menu">
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-navigation"
+        >
+          <span class="nav-toggle-icon" aria-hidden="true"><span></span></span>
+          <span>Menu</span>
+        </button>
+        <ul class="nav-links" id="primary-navigation">
+          <li>
+            <a href="{{ url_for('index') }}">Home</a>
+          </li>
+          <li>
+            <a href="{{ url_for('nhtsa_adas_ads') }}"
+              >Incident Counts By Vehicle Brands</a
+            >
+          </li>
+          <li>
+            <a href="{{ url_for('nhtsa_adas_ads_traffic') }}"
+              >NHTSA Traffic Analysis</a
+            >
+          </li>
+          <li>
+            <a href="{{ url_for('rain_check') }}">Robotaxi Rain Check</a>
+          </li>
+          <li>
+            <a href="{{ url_for('w209') }}">Waymo Safety Analysis</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <script>
+      (() => {
+        const menu = document.querySelector(".nav-menu");
+        const toggle = menu.querySelector(".nav-toggle");
+        const links = menu.querySelector(".nav-links");
+
+        menu.classList.add("js-enabled");
+
+        function closeMenu() {
+          toggle.setAttribute("aria-expanded", "false");
+          menu.classList.remove("is-open");
+        }
+
+        toggle.addEventListener("click", () => {
+          const isOpen = toggle.getAttribute("aria-expanded") === "true";
+          toggle.setAttribute("aria-expanded", String(!isOpen));
+          menu.classList.toggle("is-open", !isOpen);
+        });
+
+        links.addEventListener("click", closeMenu);
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && menu.classList.contains("is-open")) {
+            closeMenu();
+            toggle.focus();
+          }
+        });
+      })();
+    </script>
+    {% block body %} {% endblock %} {% block footer %}
+    <footer class="wrap">
+      <p>DATASCI 209, UC Berkeley MIDS</p>
+      <p>Group 4: Paul Terrasi, Rich Shelby, Sam Der, Solomon Azariah</p>
+      <p>
+        Data:
+        <a
+          href="https://www.nhtsa.gov/laws-regulations/standing-general-order-crash-reporting"
+          target="_blank"
+          rel="noopener"
+          >NHTSA Standing General Order crash reports</a
+        >
+        for automated driving systems, July 2021 to August 2026, de-duplicated
+        to 2,945 crashes, and hourly rain for six metros from the
+        <a
+          href="https://open-meteo.com/en/docs/historical-weather-api"
+          target="_blank"
+          rel="noopener"
+          >Open-Meteo Historical Weather API</a
+        >. Expected rain crashes = a city's crashes × the share of hours it was
+        raining there. Injury rates carry 95 percent intervals. Code in the
+        weather_eda folder of the team repo.
+      </p>
+    </footer>
+    {% endblock %}
+  </body>
+</html>
