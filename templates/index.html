@@ -1,0 +1,49 @@
+{% extends "layout.html" %} {% block body %}
+<header class="wrap">
+  <div class="hero">
+    <h1>Self-Driving Cars: A Safety Analysis</h1>
+  </div>
+</header>
+<main class="wrap">
+  <section class="intro">
+    <h2>What are self-driving cars?</h2>
+    <p>
+      Self-driving cars, also known as autonomous vehicles (AVs), are vehicles
+      that can operate without human intervention. They use a combination of
+      sensors, cameras, radar, and artificial intelligence to navigate and make
+      decisions on the road. This website aims to provide insights into the
+      safety of these vehicles through various visualizations.
+    </p>
+    <img
+      src="https://lh3.googleusercontent.com/IIQ4lOvKWVKvmuCvxgb_t_rcyB34x_KB93SmbUvOiiNUHt3I4NmGm_ho5aVCY6pf-N1pJ2ZTybtEfALdsHIX79myHnQWSlGBWUQ=e365-s1440-rw-v1"
+      style="width: 100%; max-width: 600px; margin: 20px auto; display: block"
+    />
+  </section>
+  <section>
+    <h2>Explore</h2>
+    <p>
+      Dive into our interactive visualizations to understand the safety aspects
+      of self-driving cars. Click on the links below to explore different
+      scenarios and analyses.
+    </p>
+    <ul>
+      <li>
+        <a href="{{ url_for('nhtsa_adas_ads') }}"
+          >NHTSA ADAS/ADS Incident Counts By Vehicle Brands</a
+        >
+      </li>
+      <li>
+        <a href="{{ url_for('nhtsa_adas_ads_traffic') }}"
+          >NHTSA ADAS/ADS Traffic Analysis</a
+        >
+      </li>
+      <li>
+        <a href="{{ url_for('rain_check') }}">Robotaxi Rain Check</a>
+      </li>
+      <li>
+        <a href="{{ url_for('w209') }}">Waymo Safety Analysis</a>
+      </li>
+    </ul>
+  </section>
+</main>
+{% endblock %}
