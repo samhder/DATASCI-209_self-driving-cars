@@ -1,41 +1,55 @@
-
-body {
-    margin: 0;
-    padding: 24px;
-    font-family: system-ui, -apple-system, sans-serif;
-    color: #222;
-    background: #fff;
+.traffic-page {
+    padding-top: 20px;
 }
 
-main {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-h1 {
-    margin: 16px 0;
-    font-size: 30px;
+.traffic-page h1 {
+    margin: 0 0 12px;
 }
 
 .description {
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 24px;
+    max-width: 720px;
+    margin: 0 0 22px;
+    color: var(--text2);
+    font-size: 17px;
 }
 
 #traffic-chart {
     width: 100%;
 }
 
-#traffic-chart svg {
+#traffic-chart .traffic-chart-svg {
     display: block;
     width: 100%;
     height: auto;
 }
 
+.traffic-filter {
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.traffic-filter-label {
+    color: var(--text2);
+}
+
+.traffic-filter-select {
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--ink);
+    font: inherit;
+}
+
+.traffic-filter-select:focus-visible {
+    outline: 2px solid var(--rain);
+    outline-offset: 2px;
+}
+
 .methodology {
-    margin-top: 20px;
-    color: #64748b;
+    margin: 10px 0 0;
+    color: var(--muted);
     font-size: 13px;
     line-height: 1.5;
 }

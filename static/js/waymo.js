@@ -2,8 +2,8 @@
   'use strict';
   const trajectory = d3.select('#trajectory-chart');
   const rateChart = d3.select('#rate-chart');
-  const blue = '#426b9a';
-  const purple = '#7b6099';
+  const blue = 'var(--rain)';
+  const purple = 'var(--clear)';
 
   d3.json('/static/data/waymo-quarterly.json').then(({ quarters: data }) => {
     let baseline = data.find(d => d.quarter === '2024 Q3');
@@ -17,13 +17,13 @@
         .attr('r', d => d.quarter === hovered ? 7 : 5)
         .attr('fill', d => d.quarter === active ? purple : blue)
         .attr('opacity', d => !active || d.quarter === active ? 1 : 0.4)
-        .attr('stroke', d => d.quarter === selected ? '#252b33' : 'none')
+        .attr('stroke', d => d.quarter === selected ? 'var(--ink)' : 'none')
         .attr('stroke-width', 2)
         .attr('aria-pressed', d => String(d.quarter === selected));
       d3.selectAll('.bar')
         .attr('fill', d => d.quarter === hovered ? blue : purple)
         .attr('opacity', 1)
-        .attr('stroke', d => d.quarter === selected ? '#252b33' : 'none')
+        .attr('stroke', d => d.quarter === selected ? 'var(--ink)' : 'none')
         .attr('stroke-width', 2)
         .attr('aria-pressed', d => String(d.quarter === selected));
     }
@@ -61,7 +61,7 @@
       svg.append('g').attr('class', 'axis').attr('transform', `translate(${m.left},0)`).call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(8)).call(g => g.select('.domain').remove());
       svg.append('text').attr('class', 'axis-label').attr('x', (width + m.left) / 2).attr('y', height - 7).attr('text-anchor', 'middle').text('Miles driven (millions)');
       svg.append('text').attr('class', 'axis-label').attr('transform', `translate(16,${(height - m.bottom + m.top) / 2}) rotate(-90)`).attr('text-anchor', 'middle').text('Reported crashes');
-      const reference = svg.append('line').attr('class', 'reference-line').attr('x1', x(0)).attr('y1', y(0)).attr('stroke', '#8c929a').attr('stroke-width', 2).attr('stroke-dasharray', '2,5');
+      const reference = svg.append('line').attr('class', 'reference-line').attr('x1', x(0)).attr('y1', y(0)).attr('stroke', 'var(--muted)').attr('stroke-width', 2).attr('stroke-dasharray', '2,5');
       const referenceTitle = reference.append('title');
       updateReference = () => {
         const endMiles = Math.min(x.domain()[1], y.domain()[1] / baseline.rate);

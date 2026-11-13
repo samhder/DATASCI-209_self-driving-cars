@@ -1,22 +1,20 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Waymo crashes per million miles driven</title>
-  <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/waymo.css') }}">
-  <script defer src="{{ url_for('static', filename='vendor/d3.v7.min.js') }}"></script>
-  <script defer src="{{ url_for('static', filename='js/waymo.js') }}"></script>
-</head>
-<body>
-  <main>
-    <h1>Waymo crashes per million miles driven</h1>
-    <p style="margin:0 0 16px 0;font-size:13px;color:#555;">
-      <a href="{{ url_for('nhtsa_adas_ads') }}">View NHTSA ADAS &amp; ADS incidents by vehicle brand &rarr;</a>
-    </p>
-    <div id="rate-chart" aria-label="Quarterly Waymo reported crashes per million miles"></div>
-    <div id="trajectory-chart" aria-label="Quarterly Waymo crashes versus miles driven"></div>
-  </main>
-</body>
-</html>
+{% extends "layout.html" %} {% block title %}Waymo Crashes per Million Miles{%
+endblock %} {% block head %} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/waymo.css') }}"
+/>
+<script defer src="{{ url_for('static', filename='js/waymo.js') }}"></script>
+{% endblock %} {% block body %}
+<main class="wrap waymo-page">
+  <h1>Waymo crashes per million miles driven</h1>
+  <div
+    id="rate-chart"
+    aria-label="Quarterly Waymo reported crashes per million miles"
+  ></div>
+  <div
+    id="trajectory-chart"
+    aria-label="Quarterly Waymo crashes versus miles driven"
+  ></div>
+</main>
+{% endblock %}
