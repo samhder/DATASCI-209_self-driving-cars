@@ -1,6 +1,6 @@
 {
-  "description": "Waymo driverless ADS crash reports and published rider-only miles, all reported locations.",
-  "period": "2024 Q3\u20132026 Q2",
+  "description": "NHTSA SGO reports joined to Waymo Safety Impact CSV2 police-reported outcome metadata, including property-damage-only crashes. CSV2 vehicle rows are retained, including distinct Waymo vehicles in one incident. No Driver / Operator Type restriction: membership is defined by the Waymo rider-only data hub cohort.",
+  "period": "2024 Q3–2026 Q2",
   "sources": [
     "https://www.nhtsa.gov/laws-regulations/standing-general-order-crash-reporting",
     "https://waymo.com/safety/impact/"
@@ -8,59 +8,59 @@
   "quarters": [
     {
       "quarter": "2024 Q3",
-      "crashes": 116,
+      "crashes": 18,
       "miles": 10904000,
       "miles_millions": 10.904,
-      "rate": 10.638297872340425
+      "rate": 1.6507703595011005
     },
     {
       "quarter": "2024 Q4",
-      "crashes": 192,
+      "crashes": 33,
       "miles": 16980000,
       "miles_millions": 16.98,
-      "rate": 11.307420494699647
+      "rate": 1.9434628975265018
     },
     {
       "quarter": "2025 Q1",
-      "crashes": 199,
+      "crashes": 33,
       "miles": 21537000,
       "miles_millions": 21.537,
-      "rate": 9.239912708362354
+      "rate": 1.532246831034963
     },
     {
       "quarter": "2025 Q2",
-      "crashes": 242,
+      "crashes": 39,
       "miles": 24345000,
       "miles_millions": 24.345,
-      "rate": 9.940439515300882
+      "rate": 1.6019716574245226
     },
     {
       "quarter": "2025 Q3",
-      "crashes": 156,
+      "crashes": 40,
       "miles": 31193000,
       "miles_millions": 31.193,
-      "rate": 5.001122046613022
+      "rate": 1.2823389863110313
     },
     {
       "quarter": "2025 Q4",
-      "crashes": 266,
+      "crashes": 66,
       "miles": 43554000,
       "miles_millions": 43.554,
-      "rate": 6.107360977177756
+      "rate": 1.5153602424576387
     },
     {
       "quarter": "2026 Q1",
-      "crashes": 274,
+      "crashes": 69,
       "miles": 49901000,
       "miles_millions": 49.901,
-      "rate": 5.4908719264143
+      "rate": 1.382737820885353
     },
     {
       "quarter": "2026 Q2",
-      "crashes": 310,
+      "crashes": 55,
       "miles": 50716000,
       "miles_millions": 50.716,
-      "rate": 6.112469437652812
+      "rate": 1.0844703840996923
     }
   ]
 }

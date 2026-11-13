@@ -4,60 +4,62 @@
 .waymo-page h1 {
   margin: 0 0 30px;
 }
-.waymo-source {
-  margin: 0 0 18px;
-  font-size: 13px;
-}
-.waymo-source a {
-  color: var(--rain);
-}
-#rate-chart,
+#comparison-chart,
 #trajectory-chart {
   padding: 14px 18px;
   border: 1px solid var(--line);
   border-radius: 18px;
   background: var(--card);
 }
-#rate-chart {
+#comparison-chart {
   margin-bottom: 14px;
 }
 #trajectory-chart {
   margin-bottom: 16px;
 }
-#rate-chart svg,
-#trajectory-chart svg {
+.waymo-page svg {
   display: block;
   width: 100%;
   height: auto;
 }
-.axis {
+.waymo-page .axis {
   color: var(--text2);
   font-size: 12px;
 }
-.axis-label,
-.point-label,
-.bar-label {
+.waymo-page .axis-label,
+.waymo-page .point-label,
+.waymo-page .series-label {
   fill: var(--ink);
 }
-.axis-label {
+.waymo-page .axis-label {
   font-size: 14px;
 }
-.point-label,
-.bar-label {
+.waymo-page .point-label,
+.waymo-page .series-label {
   font-size: 12px;
   pointer-events: none;
 }
-.grid line {
+.waymo-page .grid line {
   stroke: var(--grid);
 }
-.grid .domain {
+.waymo-page .grid .domain {
   display: none;
 }
-.point,
-.bar {
+.waymo-page .point,
+.waymo-page .human-benchmark {
   cursor: pointer;
 }
-.point:focus-visible,
-.bar:focus-visible {
-  filter: drop-shadow(0 0 2px var(--ink));
+.waymo-page svg:focus,
+.waymo-page .point:focus,
+.waymo-page .human-benchmark:focus {
+  outline: none;
+}
+.waymo-page .human-reference-label {
+  fill: var(--rain);
+  font-size: 12px;
+  text-decoration: underline dotted;
+}
+.waymo-page .human-reference-label:hover,
+.waymo-page .human-reference-label:focus {
+  font-weight: bold;
 }

@@ -1,20 +1,38 @@
-{% extends "layout.html" %} {% block title %}Waymo Crashes per Million Miles{%
-endblock %} {% block head %} {{ super() }}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/waymo.css') }}"
-/>
+{% extends "layout.html" %}
+{% block title %}Waymo Crash Rates | {% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/waymo.css') }}" />
 <script defer src="{{ url_for('static', filename='js/waymo.js') }}"></script>
-{% endblock %} {% block body %}
+{% endblock %}
+{% block body %}
 <main class="wrap waymo-page">
-  <h1>Waymo crashes per million miles driven</h1>
+  <h1>Crashes per million miles driven</h1>
   <div
-    id="rate-chart"
-    aria-label="Quarterly Waymo reported crashes per million miles"
+    id="comparison-chart"
+    aria-label="U.S. annual and Waymo quarterly police-reported crash involvements per million miles"
   ></div>
   <div
     id="trajectory-chart"
     aria-label="Quarterly Waymo crashes versus miles driven"
   ></div>
 </main>
+{% endblock %}
+{% block footer %}
+<footer class="wrap">
+  <p>DATASCI 209, UC Berkeley MIDS</p>
+  <p>Group 4: Paul Terrasi, Rich Shelby, Sam Der, Solomon Azariah</p>
+  <p>
+    Waymo’s quarterly rates use police-reported vehicle involvements and rider-only miles.
+    The U.S. series estimates annual police-reported vehicle involvements per million miles
+    across all U.S. motor vehicle traffic.
+  </p>
+  <p>
+    Data:
+    <a href="https://www.nhtsa.gov/laws-regulations/standing-general-order-crash-reporting">NHTSA SGO</a>,
+    <a href="https://waymo.com/safety/impact/">Waymo Safety Impact</a>,
+    <a href="https://www.nhtsa.gov/crash-data-systems/crash-report-sampling-system">NHTSA CRSS</a>, and
+    <a href="https://www.fhwa.dot.gov/policyinformation/statistics/2024/vm202.cfm">FHWA mileage</a>.
+  </p>
+</footer>
 {% endblock %}

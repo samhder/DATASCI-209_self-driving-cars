@@ -1,0 +1,73 @@
+{
+  "description": "National general-driving proxy, all vehicle types. CRSS VEHICLE weights summed for vehicles in transport; parked/working vehicles are in a separate table and excluded. FHWA VM-202 national total VMT. Annual point estimates; sampling uncertainty is not plotted. Not a strictly human-only fleet.",
+  "period": "2016–2024",
+  "sources": [
+    "https://www.nhtsa.gov/crash-data-systems/crash-report-sampling-system",
+    "https://www.fhwa.dot.gov/policyinformation/statistics/2024/vm202.cfm"
+  ],
+  "annual": [
+    {
+      "year": 2016,
+      "sampled_vehicles": 82149,
+      "estimated_crash_involvements": 12094306.008246228,
+      "miles_millions": 3174408,
+      "rate": 3.809940627747356
+    },
+    {
+      "year": 2017,
+      "sampled_vehicles": 97625,
+      "estimated_crash_involvements": 11547078.519788481,
+      "miles_millions": 3212347,
+      "rate": 3.594592526831155
+    },
+    {
+      "year": 2018,
+      "sampled_vehicles": 86105,
+      "estimated_crash_involvements": 12049038.295653861,
+      "miles_millions": 3240327,
+      "rate": 3.71846369074907
+    },
+    {
+      "year": 2019,
+      "sampled_vehicles": 96717,
+      "estimated_crash_involvements": 12144347.573447742,
+      "miles_millions": 3261772,
+      "rate": 3.7232361959841893
+    },
+    {
+      "year": 2020,
+      "sampled_vehicles": 94718,
+      "estimated_crash_involvements": 9145835.101303801,
+      "miles_millions": 2903622,
+      "rate": 3.14980224743572
+    },
+    {
+      "year": 2021,
+      "sampled_vehicles": 95785,
+      "estimated_crash_involvements": 10842675.355001077,
+      "miles_millions": 3132411,
+      "rate": 3.4614472222837542
+    },
+    {
+      "year": 2022,
+      "sampled_vehicles": 94756,
+      "estimated_crash_involvements": 10527209.004869577,
+      "miles_millions": 3196191,
+      "rate": 3.293673314538955
+    },
+    {
+      "year": 2023,
+      "sampled_vehicles": 87461,
+      "estimated_crash_involvements": 10906228.007538531,
+      "miles_millions": 3246817,
+      "rate": 3.3590522679715336
+    },
+    {
+      "year": 2024,
+      "sampled_vehicles": 90641,
+      "estimated_crash_involvements": 10966017.506209072,
+      "miles_millions": 3294031,
+      "rate": 3.3290571661921433
+    }
+  ]
+}
