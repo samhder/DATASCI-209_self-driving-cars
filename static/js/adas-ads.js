@@ -136,7 +136,7 @@
     container.appendChild(tsCard);
 
     const tsHeader = document.createElement("h3");
-    tsHeader.textContent = "Monthtly Record of Incidents";
+    tsHeader.textContent = "Monthly Record of Incidents";
     tsCard.appendChild(tsHeader);
 
     const tsSvg = d3.create("svg").attr("viewBox", [0, 0, 1100, 420]);
