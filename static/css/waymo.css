@@ -2,7 +2,12 @@
   padding-top: 24px;
 }
 .waymo-page h1 {
-  margin: 0 0 30px;
+  margin: 0 0 6px;
+}
+.waymo-subtitle {
+  margin: 0 0 24px;
+  color: var(--text2);
+  font-size: 18px;
 }
 #comparison-chart,
 #trajectory-chart {
@@ -54,12 +59,170 @@
 .waymo-page .human-benchmark:focus {
   outline: none;
 }
-.waymo-page .human-reference-label {
-  fill: var(--rain);
-  font-size: 12px;
-  text-decoration: underline dotted;
+
+.waymo-page .point,
+.waymo-page .human-point {
+  stroke: transparent;
+  stroke-width: 12px;
+  touch-action: manipulation;
 }
-.waymo-page .human-reference-label:hover,
-.waymo-page .human-reference-label:focus {
-  font-weight: bold;
+.waymo-page .point:focus-visible,
+.waymo-page .human-point:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+.chart-details {
+  margin: -4px 0 20px;
+  padding: 0 18px;
+}
+#quarter-readout {
+  margin-top: 16px;
+}
+.readout-quarter {
+  color: var(--ink);
+}
+#quarter-readout dl {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 10px 0;
+}
+#quarter-readout dt {
+  color: var(--text2);
+  font-size: 12px;
+}
+#quarter-readout dd {
+  margin: 2px 0 0;
+  color: var(--ink);
+  font-size: 19px;
+  font-variant-numeric: tabular-nums;
+}
+#waymo-tooltip {
+  position: fixed;
+  z-index: 20;
+  max-width: calc(100vw - 16px);
+  padding: 10px 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--fg);
+  background: var(--tipbg);
+  box-shadow: 0 3px 14px #0002;
+  font-size: 12px;
+  pointer-events: none;
+}
+#waymo-tooltip strong {
+  display: block;
+  margin-bottom: 4px;
+}
+@media (max-width: 600px) {
+  .waymo-page .point,
+  .waymo-page .human-point {
+    stroke-width: 2px;
+  }
+  #comparison-chart,
+  #trajectory-chart {
+    padding: 8px 4px;
+  }
+  .chart-details {
+    padding: 0 10px;
+  }
+  #quarter-readout dl {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.waymo-page .human-reference-label {
+  font-size: 12px;
+}
+.waymo-page .human-benchmark:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.waymo-page .human-line,
+.waymo-page .waymo-rate-line {
+  pointer-events: none;
+  transition: opacity 120ms;
+}
+.waymo-page .regression {
+  cursor: pointer;
+}
+.waymo-page .regression:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.waymo-filters {
+  display: grid;
+  gap: 12px;
+  margin: 0 18px 20px;
+}
+.waymo-filters .filter-field {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.waymo-filters legend {
+  margin-bottom: 5px;
+  padding: 0;
+  color: var(--text2);
+  font-size: 12px;
+}
+.segmented-control {
+  display: flex;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+.segmented-control button {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 42px;
+  padding: 8px 10px;
+  border: 0;
+  background: var(--card);
+  color: var(--text2);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.segmented-control button + button {
+  border-left: 1px solid var(--line);
+}
+.segmented-control button:hover {
+  background: var(--grid);
+}
+.segmented-control button[aria-pressed="true"] {
+  background: var(--pale);
+  color: var(--ink);
+  font-weight: 600;
+}
+.segmented-control button:focus-visible {
+  outline: 2px solid var(--rain);
+  outline-offset: -3px;
+}
+#location-coverage {
+  color: var(--text2);
+  font-size: 12px;
+}
+#location-coverage:empty {
+  display: none;
+}
+
+.readout-context {
+  display: block;
+  min-height: 2.8em;
+  margin-top: 3px;
+  color: var(--text2);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.waymo-page .regional-benchmark {
+  cursor: pointer;
+}
+.waymo-page .regional-benchmark:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
 }

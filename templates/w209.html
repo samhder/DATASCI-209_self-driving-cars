@@ -7,15 +7,45 @@
 {% endblock %}
 {% block body %}
 <main class="wrap waymo-page">
-  <h1>Crashes per million miles driven</h1>
+  <h1>Crashes per Million Miles Driven</h1>
+  <p class="waymo-subtitle">Waymo vs. All Drivers</p>
+  <div class="chart-details">
+    <section id="quarter-readout" aria-label="Waymo quarter details">
+      <strong class="readout-quarter"></strong>
+      <span class="readout-context"></span>
+      <dl></dl>
+    </section>
+  </div>
   <div
     id="comparison-chart"
-    aria-label="U.S. annual and Waymo quarterly police-reported crash involvements per million miles"
+    aria-label="All drivers and Waymo police-reported crash involvements per million miles"
   ></div>
   <div
     id="trajectory-chart"
     aria-label="Quarterly Waymo crashes versus miles driven"
   ></div>
+  <div class="waymo-filters">
+    <fieldset class="filter-field">
+      <legend>Crash outcome</legend>
+      <div class="segmented-control" id="crash-outcome">
+        <button type="button" data-outcome="all" aria-pressed="true">All police-reported</button>
+        <button type="button" data-outcome="injury" aria-pressed="false">Injury</button>
+        <button type="button" data-outcome="fatal" aria-pressed="false">Fatal</button>
+      </div>
+    </fieldset>
+    <fieldset class="filter-field">
+      <legend>Locations</legend>
+      <div class="segmented-control" id="waymo-location">
+        <button type="button" data-location="all" aria-pressed="true">All locations</button>
+        <button type="button" data-location="la" aria-pressed="false">Los Angeles</button>
+        <button type="button" data-location="phoenix" aria-pressed="false">Phoenix</button>
+      </div>
+    </fieldset>
+    <span id="location-coverage" role="status"></span>
+  </div>
+  <div id="waymo-tooltip" role="tooltip" hidden>
+    <strong></strong>
+  </div>
 </main>
 {% endblock %}
 {% block footer %}
@@ -23,15 +53,16 @@
   <p>DATASCI 209, UC Berkeley MIDS</p>
   <p>Group 4: Paul Terrasi, Rich Shelby, Sam Der, Solomon Azariah</p>
   <p>
-    Waymo’s quarterly rates use police-reported vehicle involvements and rider-only miles.
-    The U.S. series estimates annual police-reported vehicle involvements per million miles
-    across all U.S. motor vehicle traffic.
+    <span id="waymo-source-note">Waymo uses police-reported vehicle involvements and rider-only miles.</span>
+    <span id="driver-reference-note">All drivers covers nationwide motor-vehicle traffic. The rate arrow defaults to 2024 and follows hovered years.</span>
+    <span id="us-source-note">U.S. rates use CRSS vehicle-weighted estimates and FHWA mileage.</span>
   </p>
   <p>
     Data:
     <a href="https://www.nhtsa.gov/laws-regulations/standing-general-order-crash-reporting">NHTSA SGO</a>,
     <a href="https://waymo.com/safety/impact/">Waymo Safety Impact</a>,
-    <a href="https://www.nhtsa.gov/crash-data-systems/crash-report-sampling-system">NHTSA CRSS</a>, and
+    <a href="https://www.nhtsa.gov/crash-data-systems/crash-report-sampling-system">NHTSA CRSS</a>,
+    <a href="https://www.nhtsa.gov/crash-data-systems/fatality-analysis-reporting-system">NHTSA FARS</a>, and
     <a href="https://www.fhwa.dot.gov/policyinformation/statistics/2024/vm202.cfm">FHWA mileage</a>.
   </p>
 </footer>

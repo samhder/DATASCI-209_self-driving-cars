@@ -1,0 +1,458 @@
+{
+  "description": "Vehicle involvements in police-reported crashes, classified by whether anyone in the crash was injured or fatally injured. Injury includes fatal crashes. Mileage denominators match the all-crashes series.",
+  "injury_definition": "CRSS crash-level MAX_SEV values 1\u20135, joined by CASENUM to in-transport VEHICLE records and weighted by VEHICLE.WEIGHT. Unknown injury status is excluded. Waymo uses Is Any-Injury-Reported=True.",
+  "fatal_definition": "FARS in-transport VEHICLE records for the 50 states and DC. Waymo uses Is Any Fatal Injury=True. These count vehicle involvements in fatal crashes, including vehicles with no occupant fatality.",
+  "sources": [
+    "https://waymo.com/safety/impact/",
+    "https://www.nhtsa.gov/crash-data-systems/crash-report-sampling-system",
+    "https://www.nhtsa.gov/crash-data-systems/fatality-analysis-reporting-system",
+    "https://www.fhwa.dot.gov/policyinformation/statistics/2024/vm202.cfm"
+  ],
+  "outcomes": {
+    "injury": {
+      "quarters": [
+        {
+          "quarter": "2024 Q3",
+          "crashes": 3,
+          "miles": 10904000,
+          "miles_millions": 10.904,
+          "rate": 0.2751283932501834
+        },
+        {
+          "quarter": "2024 Q4",
+          "crashes": 7,
+          "miles": 16980000,
+          "miles_millions": 16.98,
+          "rate": 0.4122497055359246
+        },
+        {
+          "quarter": "2025 Q1",
+          "crashes": 14,
+          "miles": 21537000,
+          "miles_millions": 21.537,
+          "rate": 0.650044110136045
+        },
+        {
+          "quarter": "2025 Q2",
+          "crashes": 4,
+          "miles": 24345000,
+          "miles_millions": 24.345,
+          "rate": 0.1643047853768741
+        },
+        {
+          "quarter": "2025 Q3",
+          "crashes": 14,
+          "miles": 31193000,
+          "miles_millions": 31.193,
+          "rate": 0.44881864520886094
+        },
+        {
+          "quarter": "2025 Q4",
+          "crashes": 21,
+          "miles": 43554000,
+          "miles_millions": 43.554,
+          "rate": 0.4821600771456123
+        },
+        {
+          "quarter": "2026 Q1",
+          "crashes": 24,
+          "miles": 49901000,
+          "miles_millions": 49.901,
+          "rate": 0.48095228552534014
+        },
+        {
+          "quarter": "2026 Q2",
+          "crashes": 23,
+          "miles": 50716000,
+          "miles_millions": 50.716,
+          "rate": 0.4535057969871441
+        }
+      ],
+      "annual": [
+        {
+          "year": 2016,
+          "sampled_vehicles": 42684,
+          "estimated_crash_involvements": 3682372.5970850764,
+          "miles_millions": 3174408,
+          "rate": 1.1600186860306163
+        },
+        {
+          "year": 2017,
+          "sampled_vehicles": 51039,
+          "estimated_crash_involvements": 3375064.6555044604,
+          "miles_millions": 3212347,
+          "rate": 1.050653822735981
+        },
+        {
+          "year": 2018,
+          "sampled_vehicles": 41084,
+          "estimated_crash_involvements": 3335578.268800408,
+          "miles_millions": 3240327,
+          "rate": 1.0293955729777915
+        },
+        {
+          "year": 2019,
+          "sampled_vehicles": 46275,
+          "estimated_crash_involvements": 3315627.9188333894,
+          "miles_millions": 3261772,
+          "rate": 1.0165112456767025
+        },
+        {
+          "year": 2020,
+          "sampled_vehicles": 50454,
+          "estimated_crash_involvements": 2646589.2348141624,
+          "miles_millions": 2903622,
+          "rate": 0.9114785722157231
+        },
+        {
+          "year": 2021,
+          "sampled_vehicles": 49512,
+          "estimated_crash_involvements": 3073487.633722129,
+          "miles_millions": 3132411,
+          "rate": 0.9811891331380617
+        },
+        {
+          "year": 2022,
+          "sampled_vehicles": 46749,
+          "estimated_crash_involvements": 2944949.5031792633,
+          "miles_millions": 3196191,
+          "rate": 0.921393465903403
+        },
+        {
+          "year": 2023,
+          "sampled_vehicles": 43302,
+          "estimated_crash_involvements": 2982814.5306387795,
+          "miles_millions": 3246817,
+          "rate": 0.9186888360627592
+        },
+        {
+          "year": 2024,
+          "sampled_vehicles": 44956,
+          "estimated_crash_involvements": 2984364.727631178,
+          "miles_millions": 3294031,
+          "rate": 0.9059916945624307
+        }
+      ]
+    },
+    "fatal": {
+      "quarters": [
+        {
+          "quarter": "2024 Q3",
+          "crashes": 0,
+          "miles": 10904000,
+          "miles_millions": 10.904,
+          "rate": 0.0
+        },
+        {
+          "quarter": "2024 Q4",
+          "crashes": 0,
+          "miles": 16980000,
+          "miles_millions": 16.98,
+          "rate": 0.0
+        },
+        {
+          "quarter": "2025 Q1",
+          "crashes": 1,
+          "miles": 21537000,
+          "miles_millions": 21.537,
+          "rate": 0.04643172215257464
+        },
+        {
+          "quarter": "2025 Q2",
+          "crashes": 0,
+          "miles": 24345000,
+          "miles_millions": 24.345,
+          "rate": 0.0
+        },
+        {
+          "quarter": "2025 Q3",
+          "crashes": 1,
+          "miles": 31193000,
+          "miles_millions": 31.193,
+          "rate": 0.03205847465777578
+        },
+        {
+          "quarter": "2025 Q4",
+          "crashes": 0,
+          "miles": 43554000,
+          "miles_millions": 43.554,
+          "rate": 0.0
+        },
+        {
+          "quarter": "2026 Q1",
+          "crashes": 0,
+          "miles": 49901000,
+          "miles_millions": 49.901,
+          "rate": 0.0
+        },
+        {
+          "quarter": "2026 Q2",
+          "crashes": 0,
+          "miles": 50716000,
+          "miles_millions": 50.716,
+          "rate": 0.0
+        }
+      ],
+      "annual": [
+        {
+          "year": 2016,
+          "crash_involvements": 52714,
+          "miles_millions": 3174408,
+          "rate": 0.01660593093263374
+        },
+        {
+          "year": 2017,
+          "crash_involvements": 53128,
+          "miles_millions": 3212347,
+          "rate": 0.016538686511762272
+        },
+        {
+          "year": 2018,
+          "crash_involvements": 52286,
+          "miles_millions": 3240327,
+          "rate": 0.01613602577764528
+        },
+        {
+          "year": 2019,
+          "crash_involvements": 51623,
+          "miles_millions": 3261772,
+          "rate": 0.015826673354238124
+        },
+        {
+          "year": 2020,
+          "crash_involvements": 54552,
+          "miles_millions": 2903622,
+          "rate": 0.018787569456354857
+        },
+        {
+          "year": 2021,
+          "crash_involvements": 61802,
+          "miles_millions": 3132411,
+          "rate": 0.019729850265498367
+        },
+        {
+          "year": 2022,
+          "crash_involvements": 60765,
+          "miles_millions": 3196191,
+          "rate": 0.019011692355056377
+        },
+        {
+          "year": 2023,
+          "crash_involvements": 58508,
+          "miles_millions": 3246817,
+          "rate": 0.018020110157116954
+        },
+        {
+          "year": 2024,
+          "crash_involvements": 56011,
+          "miles_millions": 3294031,
+          "rate": 0.017003786546028254
+        }
+      ]
+    }
+  },
+  "locations": {
+    "la": {
+      "label": "Los Angeles",
+      "counties": [
+        "Los Angeles"
+      ],
+      "legacy_location": "LOS_ANGELES",
+      "quarters": [
+        {
+          "quarter": "2024 Q3",
+          "miles": 1092000,
+          "miles_millions": 1.092,
+          "crashes": 1,
+          "injury_crashes": 0,
+          "fatal_crashes": 0,
+          "geography": "legacy location"
+        },
+        {
+          "quarter": "2024 Q4",
+          "miles": 3218000,
+          "miles_millions": 3.218,
+          "crashes": 5,
+          "injury_crashes": 1,
+          "fatal_crashes": 0,
+          "geography": "legacy location"
+        },
+        {
+          "quarter": "2025 Q1",
+          "miles": 4480000,
+          "miles_millions": 4.48,
+          "crashes": 8,
+          "injury_crashes": 3,
+          "fatal_crashes": 0,
+          "geography": "legacy location"
+        },
+        {
+          "quarter": "2025 Q2",
+          "miles": 6817000,
+          "miles_millions": 6.817,
+          "crashes": 7,
+          "injury_crashes": 3,
+          "fatal_crashes": 0,
+          "geography": "legacy location"
+        },
+        {
+          "quarter": "2025 Q3",
+          "miles": 9008000,
+          "miles_millions": 9.008,
+          "crashes": 14,
+          "injury_crashes": 5,
+          "fatal_crashes": 0,
+          "geography": "legacy location"
+        },
+        {
+          "quarter": "2025 Q4",
+          "miles": 12387000,
+          "miles_millions": 12.387,
+          "crashes": 11,
+          "injury_crashes": 6,
+          "fatal_crashes": 0,
+          "geography": "county"
+        },
+        {
+          "quarter": "2026 Q1",
+          "miles": 13959000,
+          "miles_millions": 13.959,
+          "crashes": 19,
+          "injury_crashes": 12,
+          "fatal_crashes": 0,
+          "geography": "county"
+        },
+        {
+          "quarter": "2026 Q2",
+          "miles": 15282000,
+          "miles_millions": 15.282,
+          "crashes": 15,
+          "injury_crashes": 9,
+          "fatal_crashes": 0,
+          "geography": "county"
+        }
+      ]
+    },
+    "phoenix": {
+      "label": "Phoenix",
+      "counties": [
+        "Maricopa"
+      ],
+      "legacy_location": "PHOENIX",
+      "quarters": [
+        {
+          "quarter": "2024 Q3",
+          "miles": 5424000,
+          "miles_millions": 5.424,
+          "crashes": 13,
+          "injury_crashes": 3,
+          "fatal_crashes": 0,
+          "geography": "legacy location"
+        },
+        {
+          "quarter": "2024 Q4",
+          "miles": 7508000,
+          "miles_millions": 7.508,
+          "crashes": 10,
+          "injury_crashes": 3,
+          "fatal_crashes": 0,
+          "geography": "legacy location"
+        },
+        {
+          "quarter": "2025 Q1",
+          "miles": 9161000,
+          "miles_millions": 9.161,
+          "crashes": 13,
+          "injury_crashes": 5,
+          "fatal_crashes": 0,
+          "geography": "legacy location"
+        },
+        {
+          "quarter": "2025 Q2",
+          "miles": 8898000,
+          "miles_millions": 8.898,
+          "crashes": 16,
+          "injury_crashes": 0,
+          "fatal_crashes": 0,
+          "geography": "legacy location"
+        },
+        {
+          "quarter": "2025 Q3",
+          "miles": 10145000,
+          "miles_millions": 10.145,
+          "crashes": 12,
+          "injury_crashes": 3,
+          "fatal_crashes": 1,
+          "geography": "legacy location"
+        },
+        {
+          "quarter": "2025 Q4",
+          "miles": 12078000,
+          "miles_millions": 12.078,
+          "crashes": 21,
+          "injury_crashes": 5,
+          "fatal_crashes": 0,
+          "geography": "county"
+        },
+        {
+          "quarter": "2026 Q1",
+          "miles": 11938000,
+          "miles_millions": 11.938,
+          "crashes": 20,
+          "injury_crashes": 7,
+          "fatal_crashes": 0,
+          "geography": "county"
+        },
+        {
+          "quarter": "2026 Q2",
+          "miles": 11570000,
+          "miles_millions": 11.57,
+          "crashes": 11,
+          "injury_crashes": 6,
+          "fatal_crashes": 0,
+          "geography": "county"
+        }
+      ]
+    }
+  },
+  "location_definition": "Los Angeles and Phoenix use archived CSV2 Location labels with matching depot mileage through 2025 Q3, then their corresponding counties. Their location-to-county crosswalk is verified against historical crash records. All locations uses the national driver trend; selected locations use published county driver benchmarks.",
+  "legacy_crash_source": "https://storage.googleapis.com/waymo-uploads/files/documents/safety/safety-impact-data/CSV2%20-%20Crashes%20with%20SGO%20ID%20and%20Group%20Membership%20202009-202509-2022benchmark.csv",
+  "driver_benchmarks": {
+    "la": {
+      "all": {
+        "rate": 3.39059789895117,
+        "county": "Los Angeles",
+        "comparison": "Police-reported (non-Dynamic)"
+      },
+      "injury": {
+        "rate": 1.54461976412044,
+        "county": "Los Angeles",
+        "comparison": "Any-injury-reported (observed, non-Dynamic)"
+      },
+      "fatal": {
+        "rate": 0.0234443265640629,
+        "county": "Los Angeles",
+        "comparison": "Any Fatal"
+      }
+    },
+    "phoenix": {
+      "all": {
+        "rate": 4.32133451362288,
+        "county": "Maricopa",
+        "comparison": "Police-reported (non-Dynamic)"
+      },
+      "injury": {
+        "rate": 1.24140093263453,
+        "county": "Maricopa",
+        "comparison": "Any-injury-reported (observed, non-Dynamic)"
+      },
+      "fatal": {
+        "rate": 0.0242567531945744,
+        "county": "Maricopa",
+        "comparison": "Any Fatal"
+      }
+    }
+  },
+  "driver_benchmark_definition": "Published county-level, non-dynamic human-driver benchmarks from Waymo CSV3. Injury uses the observed benchmark without an underreporting correction. Multi-location benchmarks are weighted by Waymo mileage over the displayed quarters; they are fixed references, not annual observations.",
+  "driver_benchmark_source": "https://storage.googleapis.com/waymo-uploads/files/documents/safety/safety-impact-data/CSV3%20-%20Collision%20Counts%20and%20Comparison%20to%20Benchmarks%20202009-202606-2022benchmark.csv"
+}
