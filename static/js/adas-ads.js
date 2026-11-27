@@ -139,7 +139,7 @@
     tsHeader.textContent = "Monthly Record of Incidents";
     tsCard.appendChild(tsHeader);
 
-    const tsSvg = d3.create("svg").attr("viewBox", [0, 0, 1100, 420]);
+    const tsSvg = d3.create("svg").attr("viewBox", [0, 0, 1400, 460]);
     tsCard.appendChild(tsSvg.node());
 
     // Only the top 10 brands appear in the timeseries
@@ -163,7 +163,7 @@
         tsSvg,
         allRows,
         selectedMake === "None" ? null : selectedMake,
-        { width: 1100, height: 420 },
+        { width: 1400, height: 460 },
       );
     }
 
@@ -215,12 +215,12 @@
     // Y axis
     g.append("g")
       .attr("class", "axis")
-      .call(d3.axisLeft(y).ticks(8).tickFormat(d3.format(",d")))
+      .call(d3.axisLeft(y).tickFormat(d3.format(",d")))
       .call((g) => g.select(".domain").remove());
 
     g.append("text")
       .attr("x", -margin.left + 4)
-      .attr("y", -22)
+      .attr("y", -30)
       .attr("fill", "var(--ink)")
       .attr("text-anchor", "start")
       .attr("font-weight", "bold")
@@ -250,30 +250,28 @@
       .attr("width", x1.bandwidth())
       .attr("height", (d) => innerHeight - y(d.ads));
 
-    // Value labels on top of each non-zero bar
-    const adasLabels = data.filter((d) => d.adas > 0);
-    const adsLabels = data.filter((d) => d.ads > 0);
+    // Value labels on each bar (zero values sit at the baseline)
+    const adasLabels = data;
+    const adsLabels = data;
 
     g.append("g")
       .attr("fill", "var(--text2)")
-      .attr("font-size", "9px")
       .attr("text-anchor", "middle")
       .selectAll("text")
       .data(adasLabels)
       .join("text")
       .attr("x", (d) => x0(d.make) + x1("ADAS") + x1.bandwidth() / 2)
-      .attr("y", (d) => y(d.adas) - 6)
+      .attr("y", (d) => (d.adas > 0 ? y(d.adas) - 6 : innerHeight - 3))
       .text((d) => d.adas);
 
     g.append("g")
       .attr("fill", "var(--text2)")
-      .attr("font-size", "9px")
       .attr("text-anchor", "middle")
       .selectAll("text")
       .data(adsLabels)
       .join("text")
       .attr("x", (d) => x0(d.make) + x1("ADS") + x1.bandwidth() / 2)
-      .attr("y", (d) => y(d.ads) - 6)
+      .attr("y", (d) => (d.ads > 0 ? y(d.ads) - 6 : innerHeight - 3))
       .text((d) => d.ads);
 
     // X axis (brand names)
@@ -283,15 +281,13 @@
       .call(d3.axisBottom(x0))
       .selectAll("text")
       .attr("transform", "rotate(-40)")
-      .style("text-anchor", "end")
-      .attr("font-size", "10px");
+      .style("text-anchor", "end");
 
     // Axis title
     g.append("text")
       .attr("x", innerWidth / 2)
       .attr("y", innerHeight + 105)
       .attr("fill", "var(--ink)")
-      .attr("font-size", "12px")
       .attr("text-anchor", "middle")
       .text("Vehicle Brand (Make)");
 
@@ -317,7 +313,6 @@
         .attr("x", 20)
         .attr("y", 12)
         .attr("fill", "var(--ink)")
-        .attr("font-size", "13px")
         .text(s === "ADAS" ? "ADAS crashes" : "ADS crashes");
     });
   }
@@ -327,7 +322,7 @@
     // Clear any previously drawn content (allows re-rendering on filter change)
     svg.selectAll("*").remove();
 
-    const margin = { top: 40, right: 130, bottom: 160, left: 60 };
+    const margin = { top: 40, right: 60, bottom: 200, left: 60 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
@@ -362,7 +357,6 @@
         .attr("y", height / 2)
         .attr("text-anchor", "middle")
         .attr("fill", "var(--muted)")
-        .attr("font-size", "14px")
         .text(msg);
       return;
     }
@@ -408,13 +402,12 @@
       .call(
         d3
           .axisBottom(x)
-          .ticks(d3.timeMonth.every(1))
+          .ticks(d3.timeMonth.every(2))
           .tickFormat(d3.timeFormat("%b %Y")),
       )
       .selectAll("text")
       .attr("transform", "rotate(-40)")
-      .style("text-anchor", "end")
-      .attr("font-size", "9px");
+      .style("text-anchor", "end");
 
     // Y axis
     g.append("g")
@@ -427,7 +420,6 @@
       .attr("x", innerWidth / 2)
       .attr("y", innerHeight + 80)
       .attr("fill", "var(--ink)")
-      .attr("font-size", "12px")
       .attr("text-anchor", "middle")
       .text("Incident Month");
 
@@ -453,34 +445,60 @@
       .attr("stroke", (s) => color(s.make))
       .attr("d", (s) => line(s.points));
 
-    // Dots at each monthly point
+    // Dots at each monthly point (with tooltips)
+    const card = svg.node().parentElement;
+    let tooltip = card.querySelector(".ts-tooltip");
+    if (!tooltip) {
+      tooltip = document.createElement("div");
+      tooltip.className = "ts-tooltip";
+      card.appendChild(tooltip);
+    }
+
+    const showTooltip = (event, d) => {
+      tooltip.textContent = `${d.make} — ${d3.timeFormat("%b %Y")(d.date)}: ${d.count} incident${
+        d.count !== 1 ? "s" : ""
+      }`;
+      tooltip.style.display = "block";
+      tooltip.style.left = event.clientX + 12 + "px";
+      tooltip.style.top = event.clientY + 12 + "px";
+    };
+    const moveTooltip = (event) => {
+      tooltip.style.left = event.clientX + 12 + "px";
+      tooltip.style.top = event.clientY + 12 + "px";
+    };
+    const hideTooltip = () => {
+      tooltip.style.display = "none";
+    };
+
     g.append("g")
-      .attr("stroke-linecap", "round")
-      .attr("stroke-width", 3.5)
       .selectAll("g")
       .data(series)
       .join("g")
-      .attr("stroke", (s) => color(s.make))
-      .selectAll("line")
+      .selectAll("circle")
       .data((s) => s.points.map((p) => ({ ...p, make: s.make })))
-      .join("line")
-      .attr("x1", (d) => x(d.date) - 2.5)
-      .attr("x2", (d) => x(d.date) + 2.5)
-      .attr("y1", (d) => y(d.count))
-      .attr("y2", (d) => y(d.count));
+      .join("circle")
+      .attr("cx", (d) => x(d.date))
+      .attr("cy", (d) => y(d.count))
+      .attr("r", 4)
+      .attr("fill", (d) => color(d.make))
+      .attr("stroke", "var(--card)")
+      .attr("stroke-width", 1.5)
+      .on("mouseover", showTooltip)
+      .on("mousemove", moveTooltip)
+      .on("mouseout", hideTooltip);
 
-    // Legend (below the chart, right side)
+    // Legend (below the chart, horizontal layout)
     const legend = svg
       .append("g")
       .attr(
         "transform",
-        `translate(${width - margin.right + 20},${margin.top + innerHeight - 190})`,
+        `translate(${margin.left},${margin.top + innerHeight + 110})`,
       );
 
     series.forEach((s, i) => {
       const row = legend
         .append("g")
-        .attr("transform", `translate(0,${i * 18})`);
+        .attr("transform", `translate(${i * 170},0)`);
       row
         .append("line")
         .attr("x1", 0)
@@ -494,7 +512,6 @@
         .attr("x", 22)
         .attr("y", 12)
         .attr("fill", "var(--ink)")
-        .attr("font-size", "12px")
         .text(s.make);
     });
   }
