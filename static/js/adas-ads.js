@@ -15,7 +15,7 @@
       d3.csv(ADS_FILE),
     ]);
     console.log(
-      `Loaded ${adasData.length} ADAS reports and ${adsData.length} ADS reports`,
+      `Loaded ${adasData.length} assisted driving reports and ${adsData.length} self-driving reports`,
     );
     buildDashboard(adasData, adsData);
   }
@@ -37,8 +37,8 @@
     const header = document.createElement("div");
     header.className = "adas-header hero";
     header.innerHTML = `
-      <h1>NHTSA ADAS & ADS Incident Reports by Vehicle Brand</h1>
-      <h2>Crashes by Vehicle Brand — ADAS vs ADS</h2>
+      <h1>NHTSA Assisted Driving & Self-Driving Incident Reports by Vehicle Brand</h1>
+      <h2>Crashes by Vehicle Brand — Assisted Driving vs Self-Driving</h2>
     `;
     return header;
   }
@@ -313,7 +313,7 @@
         .attr("x", 20)
         .attr("y", 12)
         .attr("fill", "var(--ink)")
-        .text(s === "ADAS" ? "ADAS crashes" : "ADS crashes");
+        .text(s === "ADAS" ? "Assisted Driving" : "Self-Driving");
     });
   }
 
